@@ -1,8 +1,15 @@
 package seedu.addressbook.ui;
 
 
+import javafx.beans.property.ReadOnlyStringWrapper;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import seedu.addressbook.commands.ExitCommand;
@@ -19,6 +26,33 @@ import static seedu.addressbook.common.Messages.*;
  * Main Window of the GUI.
  */
 public class MainWindow {
+    
+    @FXML
+    private TableView<ReadOnlyPerson> personTable;
+    
+    @FXML
+    private TableColumn<ReadOnlyPerson, String> nameTableColumn;
+    
+    @FXML
+    private TableColumn<ReadOnlyPerson, String> phoneTableColumn;
+    
+    @FXML
+    private TableColumn<ReadOnlyPerson, String> emailTableColumn;
+    
+    @FXML
+    private TableColumn<ReadOnlyPerson, String> addressTableColumn;
+    
+    @FXML
+    private TableColumn<ReadOnlyPerson, String> tagsTableColumn;
+    
+    @FXML
+    private TabPane tabs;
+    
+    @FXML
+    private Tab consoleTab;
+    
+    @FXML
+    private Tab tableTab;
 
     private Logic logic;
     private Stoppable mainApp;
@@ -40,6 +74,20 @@ public class MainWindow {
     @FXML
     private TextField commandInput;
 
+    /**
+     * Initializes the controller class. This method is automatically called
+     * after the fxml file has been loaded.
+     */
+    @FXML
+    private void initialize(){
+        // Binding Person model to the column entries
+        nameTableColumn.setCellValueFactory(person-> new ReadOnlyStringWrapper(person.getValue().getName().fullName));
+        phoneTableColumn.setCellValueFactory(person->new ReadOnlyStringWrapper(person.getValue().getPhone().value));
+        emailTableColumn.setCellValueFactory( person -> new ReadOnlyStringWrapper(person.getValue().getEmail().value));
+        addressTableColumn.setCellValueFactory( person -> new ReadOnlyStringWrapper(person.getValue().getAddress().value));
+        tagsTableColumn.setCellValueFactory( person -> new ReadOnlyStringWrapper(person.getValue().getTags().toString()));
+    }
+    
 
     @FXML
     void onCommand(ActionEvent event) {
@@ -50,6 +98,21 @@ public class MainWindow {
                 exitApp();
                 return;
             }
+            
+            if(hasRelevantPersonsList(result)){
+                
+                // need to convert list to observable list in fx
+                // http://stackoverflow.com/questions/36629522/convert-arraylist-to-observable-list-for-javafx-program
+                ObservableList<ReadOnlyPerson> readOnlyPersons = FXCollections.observableArrayList(result.getRelevantPersons().get());
+                personTable.setItems(readOnlyPersons);
+                
+                // swtich to table view
+                // http://stackoverflow.com/questions/20955633/how-to-switch-through-tabs-programmatically-in-javafx
+                tabs.getSelectionModel().select(tableTab);
+            }else{
+                tabs.getSelectionModel().select(consoleTab);
+            }
+            
             displayResult(result);
             clearCommandInput();
         } catch (Exception e) {
@@ -65,6 +128,11 @@ public class MainWindow {
     /** Returns true of the result given is the result of an exit command */
     private boolean isExitCommand(CommandResult result) {
         return result.feedbackToUser.equals(ExitCommand.MESSAGE_EXIT_ACKNOWEDGEMENT);
+    }
+    
+    /** Returns true of the result given is the result of an list command */
+    private boolean hasRelevantPersonsList(CommandResult result) {
+        return result.getRelevantPersons().isPresent();
     }
 
     /** Clears the command input box */

@@ -17,9 +17,9 @@
         </TextField>
    </top>
    <center>
-      <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
+      <TabPane fx:id="tabs" prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
         <tabs>
-          <Tab text="Console View">
+          <Tab fx:id="consoleTab" text="Console View">
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
@@ -30,18 +30,17 @@
                   </AnchorPane>
             </content>
           </Tab>
-          <Tab text="Table View">
+          <Tab fx:id="tableTab" text="Table View">
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <TableView prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <TableView fx:id="personTable" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                           <columns>
-                            <TableColumn prefWidth="75.0" text="Index" />
-                            <TableColumn prefWidth="75.0" text="Name" />
-                              <TableColumn prefWidth="75.0" text="Phone" />
-                              <TableColumn prefWidth="75.0" text="Email" />
-                              <TableColumn prefWidth="400.0" text="Address" />
-                              <TableColumn prefWidth="75.0" text="Tags" />
+                              <TableColumn fx:id="nameTableColumn" prefWidth="75.0" text="Name" />
+                              <TableColumn fx:id="phoneTableColumn" prefWidth="75.0" text="Phone" />
+                              <TableColumn fx:id="emailTableColumn" prefWidth="75.0" text="Email" />
+                              <TableColumn fx:id="addressTableColumn" prefWidth="400.0" text="Address" />
+                              <TableColumn fx:id="tagsTableColumn" prefWidth="75.0" text="Tags" />
                           </columns>
                         </TableView>
                      </children>
