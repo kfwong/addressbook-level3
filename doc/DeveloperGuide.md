@@ -117,6 +117,10 @@ Use case resumes at step2
 2. Should be able to hold up to 1000 persons.
 3. Should come with automated unit tests and open source code.
 4. Should favor DOS style commands over Unix-style commands.
+5. All user I/O response time should be less than 1 second.
+6. The addressbook should display details in table form.
+7. The addressbook should support Chinese language.
+8. Release the product by 1 November 2016.
 
 ## Appendix D : Glossary
 
