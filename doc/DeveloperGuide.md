@@ -96,7 +96,7 @@ Use case ends.
 
 **Extensions**
 
-2a. The list is empty
+2a. The tag list is empty
 
 > Use case ends
 
