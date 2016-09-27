@@ -29,12 +29,12 @@ public class Logic {
         setAddressBook(storage.load());
     }
 
-    Logic(StorageFile storageFile, AddressBook addressBook){
+    Logic(Storage storageFile, AddressBook addressBook){
         setStorage(storageFile);
         setAddressBook(addressBook);
     }
 
-    void setStorage(StorageFile storage){
+    void setStorage(Storage storage){
         this.storage = storage;
     }
 
@@ -46,7 +46,7 @@ public class Logic {
      * Creates the StorageFile object based on the user specified path (if any) or the default storage path.
      * @throws StorageFile.InvalidStorageFilePathException if the target file path is incorrect.
      */
-    private StorageFile initializeStorage() throws StorageFile.InvalidStorageFilePathException {
+    private Storage initializeStorage() throws StorageFile.InvalidStorageFilePathException {
         return new StorageFile();
     }
 
